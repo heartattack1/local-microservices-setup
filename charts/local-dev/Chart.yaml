@@ -1,0 +1,6 @@
+apiVersion: v2
+name: local-dev
+version: 0.1.0
+description: Local Kubernetes stack for Spring Boot service with Kafka and Zookeeper
+type: application
+appVersion: "1.0.0"

@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: kafka
+spec:
+  ports:
+    - name: internal
+      port: 9092
+      targetPort: 9092
+    - name: external
+      port: 9094
+      targetPort: 9094
+  selector:
+    app: kafka
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: kafka
+spec:
+  serviceName: kafka
+  replicas: {{ .Values.kafka.replicas }}
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+        - name: kafka
+          image: {{ .Values.images.kafka }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9092
+              name: internal
+            - containerPort: 9094
+              name: external
+          env:
+            - name: KAFKA_CFG_ZOOKEEPER_CONNECT
+              value: zookeeper:{{ .Values.zookeeper.clientPort }}
+            - name: KAFKA_CFG_BROKER_ID
+              value: "{{ .Values.kafka.brokerId }}"
+            - name: ALLOW_PLAINTEXT_LISTENER
+              value: "yes"
+            - name: KAFKA_CFG_LISTENERS
+              value: {{ .Values.kafka.listeners.internal }},{{ .Values.kafka.listeners.external }}
+            - name: KAFKA_CFG_ADVERTISED_LISTENERS
+              value: PLAINTEXT://kafka:9092,PLAINTEXT://localhost:9094
+            - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
+              value: PLAINTEXT:PLAINTEXT
+            - name: KAFKA_CFG_INTER_BROKER_LISTENER_NAME
+              value: PLAINTEXT
+{{- range $key, $value := .Values.kafka.cfg }}
+            - name: KAFKA_CFG_{{ replace $key "." "_" | upper }}
+              value: "{{ $value }}"
+{{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: internal
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: internal
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/kafka
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

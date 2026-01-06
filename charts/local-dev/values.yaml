@@ -1,0 +1,41 @@
+namespace: local-dev
+
+images:
+  zookeeper: bitnami/zookeeper:3.9.2
+  kafka: bitnami/kafka:3.7.0
+  springApp: ghcr.io/example/spring-boot-kafka:latest
+
+kafka:
+  replicas: 1
+  brokerId: 1
+  listeners:
+    internal: PLAINTEXT://:9092
+    external: PLAINTEXT://:9094
+  cfg:
+    num.partitions: 1
+    default.replication.factor: 1
+    offsets.topic.replication.factor: 1
+    transaction.state.log.replication.factor: 1
+    transaction.state.log.min.isr: 1
+
+zookeeper:
+  clientPort: 2181
+
+springApp:
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: local
+    - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+      value: kafka:9092
+  service:
+    type: ClusterIP
+    port: 8080
