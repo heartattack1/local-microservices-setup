@@ -3,7 +3,7 @@
 This repository provides a minimal Helm chart to spin up a local development stack that includes:
 
 - Apache Kafka with Zookeeper
-- A Spring Boot service that can publish/consume messages
+- A sample Spring Boot service that publishes a heartbeat message to Kafka every minute
 - Docker-friendly defaults so you can build and run your own image locally
 
 Use this as a starting point for experimenting with microservices locally via Kind, Minikube, or any other Kubernetes cluster.
@@ -17,22 +17,21 @@ Use this as a starting point for experimenting with microservices locally via Ki
 
 ## Quick start
 
-1. **Build your Spring Boot image** (from your service repo) and tag it with a registry your cluster can pull from:
+1. **Build the sample Spring Boot image** (shipped in `spring-app`) and tag it for local use:
 
    ```bash
-   docker build -t ghcr.io/example/spring-boot-kafka:latest .
+   docker build -t local/spring-kafka-sender:latest ./spring-app
    # If using Kind, load it directly without a registry push
-   kind load docker-image ghcr.io/example/spring-boot-kafka:latest
+   kind load docker-image local/spring-kafka-sender:latest
    ```
 
 2. **Install the chart** into a dedicated namespace:
 
    ```bash
-   helm install local-dev ./charts/local-dev \
-     --create-namespace \
-     --namespace local-dev \
-     --set images.springApp=ghcr.io/example/spring-boot-kafka:latest
-   ```
+  helm install local-dev ./charts/local-dev \
+    --create-namespace \
+    --namespace local-dev
+  ```
 
 3. **Verify pods are healthy**:
 
@@ -104,3 +103,5 @@ kubectl delete namespace local-dev
 - The chart intentionally uses plaintext listeners for simplicity; do not use this configuration in production.
 - Persistent volumes are requested for Kafka so that broker restarts keep data across pod restarts on most local clusters.
 - The Spring Boot app expects `/actuator/health` for probes; adjust the path in `spring-app.yaml` or via values if your service differs.
+- The bundled Spring Boot app sends a `heartbeat-<timestamp>` message to the `demo` topic every minute. Override `SPRING_KAFKA_TOPIC`
+  via Helm values to point it to a different topic if needed.

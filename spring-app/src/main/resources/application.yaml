@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-kafka-sender
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 3
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+app:
+  kafka:
+    topic: ${SPRING_KAFKA_TOPIC:demo}
+    heartbeat-interval-ms: ${SPRING_KAFKA_HEARTBEAT_INTERVAL_MS:60000}
