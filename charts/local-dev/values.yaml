@@ -1,16 +1,16 @@
 namespace: local-dev
 
 images:
-  zookeeper: bitnami/zookeeper:3.9.2
-  kafka: bitnami/kafka:3.7.0
+  zookeeper: zookeeper:3.9.2
+  kafka: apache/kafka:3.7.0
   springApp: local/spring-kafka-sender:latest
 
 kafka:
   replicas: 1
   brokerId: 1
   listeners:
-    internal: PLAINTEXT://:9092
-    external: PLAINTEXT://:9094
+    internal: INTERNAL://:9092
+    external: EXTERNAL://:9094
   cfg:
     num.partitions: 1
     default.replication.factor: 1
