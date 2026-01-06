@@ -17,7 +17,7 @@ Use this as a starting point for experimenting with microservices locally via Ki
 
 ## Quick start
 
-1. **Build the sample Spring Boot image** (shipped in `spring-app`) and tag it for local use:
+1. **Build the sample Spring Boot image** (shipped in `spring-app`) and tag it for local use. The Dockerfile compiles the Gradle project and packages the Spring Boot JAR before creating the runtime layer:
 
    ```bash
    docker build -t local/spring-kafka-sender:latest ./spring-app
@@ -103,5 +103,5 @@ kubectl delete namespace local-dev
 - The chart intentionally uses plaintext listeners for simplicity; do not use this configuration in production.
 - Persistent volumes are requested for Kafka so that broker restarts keep data across pod restarts on most local clusters.
 - The Spring Boot app expects `/actuator/health` for probes; adjust the path in `spring-app.yaml` or via values if your service differs.
-- The bundled Spring Boot app sends a `heartbeat-<timestamp>` message to the `demo` topic every minute. Override `SPRING_KAFKA_TOPIC`
+- The bundled Spring Boot app uses Gradle and sends a `heartbeat-<timestamp>` message to the `demo` topic every minute. Override `SPRING_KAFKA_TOPIC`
   via Helm values to point it to a different topic if needed.
