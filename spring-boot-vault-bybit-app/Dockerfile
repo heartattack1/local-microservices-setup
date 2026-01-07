@@ -1,5 +1,5 @@
 # Используем официальный образ OpenJDK как базовый образ
-FROM openjdk:17-ea-slim AS build
+FROM gradle:7.5-jdk17 AS build
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
