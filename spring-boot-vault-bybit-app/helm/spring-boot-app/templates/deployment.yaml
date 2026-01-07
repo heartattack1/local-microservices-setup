@@ -5,7 +5,7 @@ metadata:
   labels:
     app: spring-bybit-connector-app
 spec:
-  replicas: {{ index .Values "replicaCount" }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: spring-bybit-connector-app
@@ -16,24 +16,12 @@ spec:
     spec:
       containers:
         - name: spring-bybit-connector-app
-          image: "{{ index .Values.image "repository" }}:{{ index .Values.image "tag" }}"
-          imagePullPolicy: {{ index .Values.image "pullPolicy" }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
-          env:
-            - name: VAULT_URI
-              value: "{{ index .Values.env.vault "uri" }}"
-            - name: VAULT_AUTHENTICATION
-              value: "{{ index .Values.env.vault "authentication" }}"
-            - name: VAULT_KUBERNETES_ROLE
-              value: "{{ index .Values.env.vault.kubernetes "role" }}"
-            - name: VAULT_KUBERNETES_MOUNT_PATH
-              value: "{{ index .Values.env.vault.kubernetes "mount-path" }}"
-            - name: VAULT_KV_ENABLED
-              value: "{{ index .Values.env.vault.kv "enabled" }}"
-            - name: VAULT_KV_BACKEND
-              value: "{{ index .Values.env.vault.kv "backend" }}"
-            - name: VAULT_KV_DEFAULT_CONTEXT
-              value: "{{ index .Values.env.vault.kv "default-context" }}"
+          envFrom:
+            - configMapRef:
+                name: spring-bybit-connector-app-config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
