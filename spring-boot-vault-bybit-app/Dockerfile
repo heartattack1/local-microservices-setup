@@ -13,7 +13,7 @@ COPY src /app/src
 RUN gradle build -x test --no-daemon
 
 # Используем более легкий образ для финального контейнера
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-ea-slim
 
 # Копируем собранный jar файл из предыдущего этапа
 COPY --from=build /app/build/libs/spring-bybit-connector-app.jar /spring-bybit-connector-app.jar
