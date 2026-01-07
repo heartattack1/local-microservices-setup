@@ -5,7 +5,7 @@ metadata:
   labels:
     app: spring-bybit-connector-app
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ index .Values "replicaCount" }}
   selector:
     matchLabels:
       app: spring-bybit-connector-app
@@ -16,24 +16,24 @@ spec:
     spec:
       containers:
         - name: spring-bybit-connector-app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ index .Values.image "repository" }}:{{ index .Values.image "tag" }}"
+          imagePullPolicy: {{ index .Values.image "pullPolicy" }}
           ports:
             - containerPort: 8080
           env:
             - name: VAULT_URI
-              value: "{{ .Values.env.vault.uri }}"
+              value: "{{ index .Values.env.vault "uri" }}"
             - name: VAULT_AUTHENTICATION
-              value: "{{ .Values.env.vault.authentication }}"
+              value: "{{ index .Values.env.vault "authentication" }}"
             - name: VAULT_KUBERNETES_ROLE
-              value: "{{ .Values.env.vault.kubernetes.role }}"
+              value: "{{ index .Values.env.vault.kubernetes "role" }}"
             - name: VAULT_KUBERNETES_MOUNT_PATH
-              value: "{{ .Values.env.vault.kubernetes.mount-path }}"
+              value: "{{ index .Values.env.vault.kubernetes "mount-path" }}"
             - name: VAULT_KV_ENABLED
-              value: "{{ .Values.env.vault.kv.enabled }}"
+              value: "{{ index .Values.env.vault.kv "enabled" }}"
             - name: VAULT_KV_BACKEND
-              value: "{{ .Values.env.vault.kv.backend }}"
+              value: "{{ index .Values.env.vault.kv "backend" }}"
             - name: VAULT_KV_DEFAULT_CONTEXT
-              value: "{{ .Values.env.vault.default-context }}"
+              value: "{{ index .Values.env.vault.kv "default-context" }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
