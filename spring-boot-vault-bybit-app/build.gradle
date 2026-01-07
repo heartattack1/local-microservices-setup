@@ -12,21 +12,15 @@ repositories {
     mavenCentral()
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:5.0.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:3.0.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('bootJar') {
-    mainClass = 'com.example.demo2.SpringBootApp'
+    mainClass = 'com.example.SpringBootApp'
 }
 
 tasks.named('test') {
