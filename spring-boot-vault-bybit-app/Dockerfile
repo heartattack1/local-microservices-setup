@@ -5,13 +5,13 @@ FROM gradle:7.5-jdk17 AS build
 WORKDIR /app
 
 # Копируем build.gradle (и только его, если у вас нет settings.gradle)
-COPY build.gradle ./
+COPY build.gradle ./ 
 
 # Качаем зависимости (для кэширования зависимостей)
 RUN gradle dependencies --no-daemon
 
 # Если у вас есть settings.gradle, добавьте его, иначе просто копируем исходный код
-# COPY settings.gradle ./
+# COPY settings.gradle ./ 
 
 # Копируем весь код проекта
 COPY src /app/src
@@ -22,8 +22,8 @@ RUN gradle build -x test --no-daemon
 # Используем более легкий образ для финального контейнера
 FROM openjdk:17-ea-slim
 
-# Копируем собранный jar файл из предыдущего этапа
-COPY --from=build /app/build/libs/spring-boot-app.jar /spring-boot-app.jar
+# Копируем любой .jar файл из директории libs
+COPY --from=build /app/build/libs/*.jar /spring-boot-app.jar
 
 # Открываем порт для приложения
 EXPOSE 8080
