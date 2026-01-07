@@ -15,25 +15,25 @@ spec:
         app: spring-bybit-connector-app
     spec:
       containers:
-      - name: spring-bybit-connector-app
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - containerPort: 8080
-        env:
-        - name: VAULT_URI
-          value: "{{ .Values.env.vault.uri }}"
-        - name: VAULT_AUTHENTICATION
-          value: "{{ .Values.env.vault.authentication }}"
-        - name: VAULT_KUBERNETES_ROLE
-          value: "{{ .Values.env.vault.kubernetes.role }}"
-        - name: VAULT_KUBERNETES_MOUNT_PATH
-          value: "{{ .Values.env.vault.kubernetes.mount-path }}"
-        - name: VAULT_KV_ENABLED
-          value: "{{ .Values.env.vault.kv.enabled }}"
-        - name: VAULT_KV_BACKEND
-          value: "{{ .Values.env.vault.kv.backend }}"
-        - name: VAULT_KV_DEFAULT_CONTEXT
-          value: "{{ .Values.env.vault.default-context }}"
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+        - name: spring-bybit-connector-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VAULT_URI
+              value: "{{ .Values.env.vault.uri }}"
+            - name: VAULT_AUTHENTICATION
+              value: "{{ .Values.env.vault.authentication }}"
+            - name: VAULT_KUBERNETES_ROLE
+              value: "{{ .Values.env.vault.kubernetes.role }}"
+            - name: VAULT_KUBERNETES_MOUNT_PATH
+              value: "{{ .Values.env.vault.kubernetes.mount-path }}"
+            - name: VAULT_KV_ENABLED
+              value: "{{ .Values.env.vault.kv.enabled }}"
+            - name: VAULT_KV_BACKEND
+              value: "{{ .Values.env.vault.kv.backend }}"
+            - name: VAULT_KV_DEFAULT_CONTEXT
+              value: "{{ .Values.env.vault.default-context }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
