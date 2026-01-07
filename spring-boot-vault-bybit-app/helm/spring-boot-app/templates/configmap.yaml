@@ -3,17 +3,10 @@ kind: ConfigMap
 metadata:
   name: spring-bybit-connector-app-config
 data:
-  application.yml: |
-    spring:
-      cloud:
-        vault:
-          uri: "{{ index .Values.env.vault.uri }}"
-          authentication: "{{ index .Values.env.vault.authentication }}"
-          kubernetes:
-            role: "{{ index .Values.env.vault.kubernetes.role }}"
-            mount-path: "{{ index .Values.env.vault.kubernetes.mount-path }}"
-          kv:
-            enabled: {{ index .Values.env.vault.kv.enabled }}
-            backend: "{{ index .Values.env.vault.kv.backend }}"
-            default-context: "{{ index .Values.env.vault.default-context }}"
-
+  VAULT_URI: "http://vault.vault.svc.cluster.local:8200"
+  VAULT_AUTHENTICATION: "Kubernetes"
+  VAULT_KUBERNETES_ROLE: "spring-app"
+  VAULT_KUBERNETES_MOUNT_PATH: "auth/kubernetes"
+  VAULT_KV_ENABLED: "true"
+  VAULT_KV_BACKEND: "secret"
+  VAULT_KV_DEFAULT_CONTEXT: "bybit"
