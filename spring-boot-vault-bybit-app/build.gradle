@@ -27,3 +27,10 @@ tasks.named('bootJar') {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task cleanBuildDir(type: Delete) {
+    delete 'build/libs/*.jar'
+}
+
+build.dependsOn cleanBuildDir
+
