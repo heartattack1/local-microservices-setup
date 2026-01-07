@@ -1,0 +1,42 @@
+# Операционные системы
+.DS_Store
+Thumbs.db
+
+# Каталоги и файлы IntelliJ IDEA
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+
+# Лог-файлы
+*.log
+
+# Файлы среды
+*.class
+*.jar
+*.war
+*.ear
+
+# Временные файлы
+*.swp
+*~.nfs
+
+# Файлы для зависимостей Gradle (не должны попадать в репозиторий)
+.gradle/
+build/
+
+# Временно сгенерированные файлы
+out/
+
+# Java
+*.log
+
+# JetBrains Rider
+.idea/.idea_ic.log
+.idea/.idea_ic.log.*
+
+# Файлы зависимостей (зависит от вашей конфигурации)
+.gradle/
+build/
