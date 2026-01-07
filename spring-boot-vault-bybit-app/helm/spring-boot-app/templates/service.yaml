@@ -1,1 +1,12 @@
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-bybit-connector-app
+spec:
+  selector:
+    app: spring-bybit-connector-app
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+  type: {{ .Values.service.type }}
