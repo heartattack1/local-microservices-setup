@@ -1,1 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-bybit-connector-app-config
+data:
+  application.yml: |
+    spring:
+      cloud:
+        vault:
+          uri: "{{ .Values.env.vault.uri }}"
+          authentication: "{{ .Values.env.vault.authentication }}"
+          kubernetes:
+            role: "{{ .Values.env.vault.kubernetes.role }}"
+            mount-path: "{{ .Values.env.vault.kubernetes.mount-path }}"
+          kv:
+            enabled: {{ .Values.env.vault.kv.enabled }}
+            backend: "{{ .Values.env.vault.kv.backend }}"
+            default-context: "{{ .Values.env.vault.default-context }}"
 
