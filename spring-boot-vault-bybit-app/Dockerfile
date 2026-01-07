@@ -1,5 +1,5 @@
 # Используем официальный образ OpenJDK как базовый образ
-FROM openjdk:17-jdk-slim AS build
+FROM openjdk:17-ea-slim AS build
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -20,7 +20,7 @@ COPY src /app/src
 RUN gradle build -x test --no-daemon
 
 # Используем более легкий образ для финального контейнера
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-ea-slim
 
 # Копируем собранный jar файл из предыдущего этапа
 COPY --from=build /app/build/libs/spring-boot-app.jar /spring-boot-app.jar
