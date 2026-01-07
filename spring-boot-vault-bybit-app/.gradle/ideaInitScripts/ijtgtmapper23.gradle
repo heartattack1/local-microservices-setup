@@ -1,0 +1,17 @@
+ext.pathMapper = [:]
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/util_rt.jar', '/tmp/LAeB4S/util_rt.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/external-system-rt.jar', '/tmp/LAeB4S/external-system-rt.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/gradle/lib/gradle-tooling-extension-api.jar', '/tmp/CQhsIj/gradle-tooling-extension-api.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/gradle/lib/gradle-tooling-extension-impl.jar', '/tmp/CQhsIj/gradle-tooling-extension-impl.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/util-8.jar', '/tmp/LAeB4S/util-8.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/util_rt.jar', '/tmp/LAeB4S/util_rt.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/external-system-rt.jar', '/tmp/LAeB4S/external-system-rt.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/gradle/lib/gradle-tooling-extension-api.jar', '/tmp/CQhsIj/gradle-tooling-extension-api.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/gradle/lib/gradle-tooling-extension-impl.jar', '/tmp/CQhsIj/gradle-tooling-extension-impl.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/util-8.jar', '/tmp/LAeB4S/util-8.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/lib/opentelemetry.jar', '/tmp/LAeB4S/opentelemetry.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/Kotlin/lib/kotlin-gradle-tooling.jar', '/tmp/p8lKkS/kotlin-gradle-tooling.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/gradle/lib/gradle-api-8.14.jar', '/tmp/CQhsIj/gradle-api-8.14.jar')
+ext.pathMapper.put('D:/Program Files/IntelliJ IDEA 2025.2.6/plugins/compose-ide-plugin/lib/modules/intellij.compose.ide.plugin.gradleTooling.rt.jar', '/tmp/MnEHhm/intellij.compose.ide.plugin.gradleTooling.rt.jar')
+ext.pathMapper.put("<<target java executable path>>", '/usr/lib/jvm/java-1.17.0-openjdk-amd64/bin/java')
+ext.mapPath = { path -> pathMapper.get(path) ?: path }
