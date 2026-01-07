@@ -1,1 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: your-docker-repo/spring-boot-app
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  name: spring-boot-app
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+env:
+  vault:
+    uri: http://vault.vault.svc.cluster.local:8200
+    authentication: Kubernetes
+    kubernetes:
+      role: spring-app
+      mount-path: auth/kubernetes
+    kv:
+      enabled: true
+      backend: secret
+      default-context: bybit
+
+resources: {}
 
