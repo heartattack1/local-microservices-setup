@@ -16,8 +16,12 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:3.0.1'  // Указание версии
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:3.0.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('bootJar') {
+    mainClassName = 'com.example.SpringBootApp'
 }
 
 tasks.named('test') {
