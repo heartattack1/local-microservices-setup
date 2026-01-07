@@ -16,10 +16,10 @@ RUN gradle build -x test --no-daemon
 FROM openjdk:17-jdk-slim
 
 # Копируем собранный jar файл из предыдущего этапа
-COPY --from=build /app/build/libs/spring-boot-app.jar /spring-boot-app.jar
+COPY --from=build /app/build/libs/spring-bybit-connector-app.jar /spring-bybit-connector-app.jar
 
 # Открываем порт для приложения
 EXPOSE 8080
 
 # Запускаем приложение
-ENTRYPOINT ["java", "-jar", "/spring-boot-app.jar"]
+ENTRYPOINT ["java", "-jar", "/spring-bybit-connector-app.jar"]
