@@ -1,12 +1,12 @@
 replicaCount: 1
 
 image:
-  repository: your-docker-repo/spring-boot-app
+  repository: your-docker-repo/spring-bybit-connector-app
   pullPolicy: Always
   tag: "latest"
 
 service:
-  name: spring-boot-app
+  name: spring-bybit-connector-app
   type: ClusterIP
   port: 8080
   targetPort: 8080
