@@ -21,7 +21,7 @@ dependencies {
 }
 
 tasks.named('bootJar') {
-    mainClassName = 'com.example.SpringBootApp'
+    mainClass = 'com.example.SpringBootApp'
 }
 
 tasks.named('test') {
